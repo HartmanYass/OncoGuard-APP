@@ -1,0 +1,178 @@
+package com.example.oncoguard.feature.home
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.*
+import com.example.oncoguard.R
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.oncoguard.core.components.CustomBottomBar
+import com.example.oncoguard.core.components.CustomTopAppBar
+
+
+@Composable
+fun TelaBemEstar(navController: NavController) {
+
+    Scaffold(
+        bottomBar = { CustomBottomBar(navController = navController) },
+        topBar = {
+            CustomTopAppBar(
+                title = "Voltar",
+                navigationIcon = Icons.Default.Info,
+                showBackButton = true,
+                navController = navController
+            )
+        }
+    ) { paddingValues ->
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .verticalScroll(scrollState)
+        ) {
+
+            // Barra azul superior
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(45.dp)
+                    .background(Color(0xFF54A1E0)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Bem-Estar",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            // Conteúdo principal
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(0xFF54A1E0)),
+                contentAlignment = Alignment.Center
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp),
+                    color = Color.White,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 20.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(33.dp),
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.personagem_bemestar2),
+                                contentDescription = "Personagem bem-estar",
+                                modifier = Modifier
+                                    .height(153.dp)
+                                    .width(91.dp)
+                                    .padding(end = 12.dp),
+                            )
+
+                            Column {
+                                Text(
+                                    text = "Cuidar de si é um gesto de amor e coragem!",
+                                    fontSize = 24.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFFB60158),
+                                )
+
+                                Text(
+                                    text = "Honre seus sentimentos e seja paciente consigo mesmo",
+                                    fontSize = 14.sp,
+                                    color = Color(0xFFB60158),
+                                    modifier = Modifier.padding(top = 8.dp)
+                                )
+                            }
+                        }
+
+
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = "Mas como?",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFB60158),
+                        )
+
+                        Text(
+                            text = """
+                           O bem-estar começa nos pequenos detalhes em uma boa noite de sono, em 
+                           um passeio leve, em uma conversa que acalma o coração.
+                           Seu corpo e sua mente merecem atenção, carinho e descanso.
+                           Lembre-se: cuidar da saúde é também cuidar da vida que pulsa dentro de você. 
+                          
+                          Quer se sentir ainda melhor? Clique abaixo e descubra nossos médicos prontos 
+                          para cuidar de você!
+                            """.trimIndent(),
+                            fontSize = 16.sp,
+                            color = Color.DarkGray,
+                            lineHeight = 24.sp,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Button(
+                            onClick = { navController.navigate("TelaMedico") },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFB60158),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(30.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        ) {
+                            Text(
+                                text = "Ver mais",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BemPreview() {
+    TelaBemEstar(
+        navController = NavController(LocalContext.current) // TODO()
+    )
+}
